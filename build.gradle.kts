@@ -22,6 +22,10 @@ dependencies {
     implementation("org.jetbrains.kotlinx.spark:kotlin-spark-api-3.2:$kotlinSparkApiVersion")
     // Spark SQL subsumes Spark Core
     implementation("org.apache.spark:spark-sql_$scalaVersion:$sparkVersion")
+    // Spark Avro support
+    implementation("org.apache.spark:spark-avro_$scalaVersion:$sparkVersion")
+
+    // Spark test dependencies
     testImplementation(kotlin("test"))
 }
 
@@ -33,7 +37,6 @@ tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
 
-
 tasks {
     build {
         dependsOn(shadowJar)
@@ -43,7 +46,7 @@ tasks {
 tasks.withType<ShadowJar> {
     manifest {
         attributes(mapOf(
-            "Main-Class" to "org.mycompany.spark.DemoJobKt",
+            "Main-Class" to "org.mycompany.spark.AvroJobKt",
             "Implementation-Version" to archiveVersion,
             "Build-Time" to LocalDateTime.now().toString()
         ))
@@ -55,5 +58,5 @@ tasks.withType<ShadowJar> {
 }
 
 application {
-    mainClass.set("org.mycompany.spark.DemoJobKt")
+    mainClass.set("org.mycompany.spark.AvroJobKt")
 }

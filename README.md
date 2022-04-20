@@ -39,7 +39,7 @@ Or via spark-submit
 ```shell
 # Submit Local
 spark-submit \
-    --class org.mycompany.spark.DemoJobKt \
+    --class org.mycompany.spark.AvroJobKt \
     --master local \
     --properties-file application.properties \
      build/libs/spark-demo-0.1.0-SNAPSHOT-all.jar
@@ -57,18 +57,18 @@ spark-submit \
 ```shell
 # Submit to Cluster
 spark-submit \
-    --class org.mycompany.spark.DemoJobKt \
+    --class org.mycompany.spark.AvroJobKt \
     --master spark://localhost:7077 \
     build/libs/spark-demo-0.1.0-SNAPSHOT-all.jar
 
 spark-submit \
-    --class org.mycompany.spark.LoadJobKt \
+    --class org.mycompany.spark.AvroJobKt \
     --master spark://localhost:7077 \
     --properties-file application-prod.properties \
     build/libs/spark-demo-0.1.0-SNAPSHOT-all.jar
     
 nohup spark-submit \
-    --class corg.mycompany.spark.LoadJobKt \
+    --class corg.mycompany.spark.AvroJobKt \
     --master yarn \
     --queue abcd \
     --num-executors 2 \

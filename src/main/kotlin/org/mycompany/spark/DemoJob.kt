@@ -9,8 +9,7 @@ fun main(args: Array<String>) {
     println("Program arguments: ${args.joinToString()}")
 
     val logFile = "README.md" // Change to your Spark Home path
-    withSpark {
-    //withSpark(master = "yarn", logLevel = SparkLogLevel.DEBUG){
+    withSpark(appName = "Count Lines", /*master = "yarn", logLevel = SparkLogLevel.DEBUG*/){
         spark.read().textFile(logFile).withCached {
             val numAs = filter { it.contains("a") }.count()
             val numBs = filter { it.contains("b") }.count()
