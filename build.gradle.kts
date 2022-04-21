@@ -22,7 +22,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx.spark:kotlin-spark-api-3.2:$kotlinSparkApiVersion")
     // Spark SQL subsumes Spark Core
     implementation("org.apache.spark:spark-sql_$scalaVersion:$sparkVersion")
-    // Spark Avro support
+    // Spark Avro support // FIXME: compileOnly for avro?
     implementation("org.apache.spark:spark-avro_$scalaVersion:$sparkVersion")
 
     // Spark test dependencies
@@ -44,6 +44,7 @@ tasks {
 }
 
 tasks.withType<ShadowJar> {
+    isZip64 = true
     manifest {
         attributes(mapOf(
             "Main-Class" to "org.mycompany.spark.AvroJobKt",
