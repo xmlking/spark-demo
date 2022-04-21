@@ -29,6 +29,8 @@ gradle build -x test
 > In IDEs like IntelliJ, you can run `main` method directly.
 
 ```shell
+sdk use java 11.0.14-zulu 
+
 gradle run 
 # passing arguments for main method
 gradle run --args="lorem ipsum dolor"

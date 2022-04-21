@@ -24,6 +24,7 @@ dependencies {
     implementation("org.apache.spark:spark-sql_$scalaVersion:$sparkVersion")
     // Spark Avro support // FIXME: compileOnly for avro?
     implementation("org.apache.spark:spark-avro_$scalaVersion:$sparkVersion")
+    compileOnly("com.google.cloud.bigdataoss:gcs-connector:hadoop3-2.2.6")
 
     // Spark test dependencies
     testImplementation(kotlin("test"))
