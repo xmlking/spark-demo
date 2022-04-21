@@ -89,7 +89,7 @@ nohup spark-submit \
 gsutil mb gs://my-demo-bucket
 gsutil cp data/in/account.avro gs://my-demo-bucket/in
 
-gsutil cp target/word-count-1.0.jar gs://${BUCKET_NAME}/java/spark-demo-0.1.0-SNAPSHOT-all.jar
+gsutil cp target/word-count-1.0.jar gs://${BUCKET_NAME}/java/build/libs/spark-demo-0.1.0-SNAPSHOT-all.jar
 ```
 
 ```shell
@@ -101,8 +101,8 @@ HISTORY_SERVER_CLUSTER=<history-server> \
 
 gcloud dataproc jobs submit spark \
     --cluster=${CLUSTER} \
-    --class=dataproc.codelab.WordCount \
-    --jars=gs://${BUCKET_NAME}/java/spark-demo-0.1.0-SNAPSHOT-all.jar \
+    --class=org.mycompany.spark.AvroJobKt \
+    --jars=gs://${BUCKET_NAME}/java/build/libs/spark-demo-0.1.0-SNAPSHOT-all.jar \
     --region=${REGION} \
     -- gs://${BUCKET_NAME}/input/ gs://${BUCKET_NAME}/output/
 ```
