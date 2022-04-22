@@ -86,25 +86,35 @@ nohup spark-submit \
 ### Google Cloud
 
 ```shell
-gsutil mb gs://my-demo-bucket
-gsutil cp data/in/account.avro gs://my-demo-bucket/in
+export GCP_PROJECT=<gcp-project-id>
+export REGION=<region>
+export SUBNET=<subnet>
+export GCS_STAGING_LOCATION=<gcs-staging-bucket-folder>
+export HISTORY_SERVER_CLUSTER=<history-server>
+export BUCKET_NAME=my-demo-bucket-sumo
+```
+```shell
+gsutil mb gs://$BUCKET_NAME
+gsutil cp data/in/account.avro gs://$BUCKET_NAME/data/in
 
-gsutil cp target/word-count-1.0.jar gs://${BUCKET_NAME}/java/build/libs/spark-demo-0.1.0-SNAPSHOT-all.jar
+gsutil cp build/libs/spark-demo-0.1.0-SNAPSHOT-all.jar gs://$BUCKET_NAME/java/build/libs/spark-demo-0.1.0-SNAPSHOT-all.jar
 ```
 
 ```shell
-GCP_PROJECT=<gcp-project-id> \
-REGION=<region>  \
-SUBNET=<subnet>   \
-GCS_STAGING_LOCATION=<gcs-staging-bucket-folder> \
-HISTORY_SERVER_CLUSTER=<history-server> \
+GCP_PROJECT=<gcp-project-id>
+REGION=<region>
+SUBNET=<subnet>
+GCS_STAGING_LOCATION=<gcs-staging-bucket-folder>
+HISTORY_SERVER_CLUSTER=<history-server>
 
 gcloud dataproc jobs submit spark \
     --cluster=${CLUSTER} \
+    --region=${REGION} \
     --class=org.mycompany.spark.AvroJobKt \
     --jars=gs://${BUCKET_NAME}/java/build/libs/spark-demo-0.1.0-SNAPSHOT-all.jar \
-    --region=${REGION} \
-    -- gs://${BUCKET_NAME}/input/ gs://${BUCKET_NAME}/output/
+    --archives=org.apache.spark:spark-avro_2.12:3.2.0,com.google.cloud.bigdataoss:gcs-connector:hadoop3-2.2.6 \
+    --properties-file application.properties \
+    -- gs://${BUCKET_NAME}/data/in/ gs://${BUCKET_NAME}/data/out/
 ```
 
 ## Reference 
